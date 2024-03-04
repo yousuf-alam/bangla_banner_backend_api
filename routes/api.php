@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,15 +54,13 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('user')->group(function () {
-    Route::post('register', 'UserController@register');
-    Route::post('login', 'UserController@login');
-    Route::post('logout', 'UserController@logout');
-    Route::post('refresh', 'UserController@refresh');
-    Route::post('me', 'UserController@me');
+    Route::post('register', [UserController::class, 'userRegister']);
+    Route::post('login', [UserController::class, 'userLogin']);
+
 
     Route::middleware('auth:sanctum')->group(function () {
 
-
+        Route::post('logout', [UserController::class,'userLogout']);
     });
 });
 
