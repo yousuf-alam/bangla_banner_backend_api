@@ -60,6 +60,8 @@ Route::prefix('user')->group(function () {
 
     Route::middleware('auth:sanctum')->group(function () {
 
+        Route::get('user-profile', [UserController::class,'userProfile']);
+        Route::get('debit-wallet', [UserController::class,'debitUserWallet']);
         Route::post('logout', [UserController::class,'userLogout']);
     });
 });
