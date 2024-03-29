@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User\User;
 use App\Repositories\S3FileRepository;
+use HttpResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -16,19 +17,23 @@ class UserController extends Controller
     {
         if (User::where('phone', $request->phone)->exists()) {
             return response()->json([
-                'success' => false,
-                'message' => 'Phone number already exists'
-            ]);
+                'message' => 'Phone number already exists',
+                'success' => false
+            ], Response::HTTP_CONFLICT);
         }
-        $data= new User();
+
+        $data = new User();
         $data->name = $request->name;
         $data->phone = $request->phone;
-        $data->password= bcrypt($request->password);
+        $data->password = bcrypt($request->password);
         $data->save();
+
         return response()->json([
+            'message' => 'User registered successfully',
             'success' => true,
             'data' => $data
-        ]);
+        ], Response::HTTP_CREATED);
+
     }
 
     public function userLogin(Request $request)
