@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentSubmissionController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,11 @@ Route::prefix('admin')->group(function () {
             Route::get('get', 'BannerController@getBanner');
             Route::get('get/{id}', 'BannerController@getBannerById');
         });
+        Route::prefix('payment')->group(function () {
+            Route::get('get', [PaymentSubmissionController::class,'getPayment']);
+            Route::get('get/{id}', [PaymentSubmissionController::class,'getPaymentById']);
+            Route::post('update', [PaymentSubmissionController::class,'updatePayment']);
+        });
     });
 
 });
@@ -62,6 +68,7 @@ Route::prefix('user')->group(function () {
 
         Route::get('user-profile', [UserController::class,'userProfile']);
         Route::get('debit-wallet', [UserController::class,'debitUserWallet']);
+        Route::post('payment-submission', [PaymentSubmissionController::class,'paymentSubmission']);
         Route::post('logout', [UserController::class,'userLogout']);
     });
 });
