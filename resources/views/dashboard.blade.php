@@ -19,6 +19,8 @@
             <div class="col-md-4 col-md-offset-4 style="margin-top:20px;">
 
                 <h4>Welcome to Dashboard</h4>
+
+                <a href="/logout">LogOut</a>
                 <hr>
 
             </div>

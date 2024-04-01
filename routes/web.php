@@ -15,7 +15,7 @@ use App\Http\Controllers\Admin\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/login', [AdminController::class,'login']);
@@ -24,10 +24,12 @@ Route::post('/register-user',[AdminController::class, 'registerUser'])->name('re
 
 Route::post('/login-user',[AdminController::class, 'loginUser'])->name('login-user');
 
+Route::get('/logout', [AdminController::class, 'logout']);
+
 Route::prefix('console')->middleware(['admin_auth'])->group(function () {
 
 
-    Route::get('/console', [AdminController::class, 'dashboard']);
+    Route::get('/', [AdminController::class, 'dashboard']);
 
 
 });

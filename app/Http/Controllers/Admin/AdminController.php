@@ -35,7 +35,6 @@ class AdminController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role_id = 1;
         $user->phone = $request->phone;
         $user->status = 'active';
         $user->created_at = now();
@@ -48,43 +47,42 @@ class AdminController extends Controller
         }
     }
 
-    public function loginUser(Request $request){
-
+    public function loginUser(Request $request)
+    {
         $request->validate([
-
             'email' => 'required|email',
             'password' => 'required',
-
         ]);
 
-        $user = User::where('email', '=' ,$request->email)->first();
+        $user = User::where('email', '=', $request->email)->first();
 
-        if($user){
-
-            if(Hash::check($request->password, $user->password)){
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
                 $request->session()->put('loginId', $user->id);
-                return redirect('/');
-            } else{
-
+                return redirect('/console');
+            } else {
                 return back()->with('fail', 'Password not matches');
             }
-        } else{
-
+        } else {
             return back()->with('fail', 'This email is not registered');
         }
-
     }
 
-        public function dashboard(){
-
-            $data = array();
-            if(Session::has('loginId')){
-
-                $data = User::where('id', '=' , Session::has('loginId'))->first();
-
-            }
-
-            return view('dashboard',compact('data'));
+    public function dashboard()
+    {
+        $data = [];
+        if (Session::has('loginId')) {
+            $data = User::where('id', '=', Session::has('loginId'))->first();
         }
 
+        return view('dashboard', compact('data'));
+    }
+
+    public function logout()
+    {
+        if (Session::has('loginId')) {
+            Session::pull('loginId');
+            return redirect('login');
+        }
+    }
 }
