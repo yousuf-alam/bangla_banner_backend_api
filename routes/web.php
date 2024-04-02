@@ -31,6 +31,11 @@ Route::prefix('console')->middleware(['admin_auth'])->group(function () {
 
     Route::get('/', [AdminController::class, 'dashboard']);
 
+    Route::get('/all-payments', [AdminController::class, 'allPayments']);
+    Route::get('/pending-payments', [AdminController::class, 'pendingPayments']);
+
+
+
 
 });
 

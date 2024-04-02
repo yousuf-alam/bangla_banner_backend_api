@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PaymentSubmission;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -85,4 +86,23 @@ class AdminController extends Controller
             return redirect('login');
         }
     }
+
+    public function allPayments(){
+
+        $allPayments = PaymentSubmission::with('user')->get();
+
+        return view('payments.allpayment',compact('allPayments'));
+    }
+
+    public function pendingPayments(){
+
+        $pendingPayments = PaymentSubmission::with('user')
+        ->where('status', 'pending')
+        ->get();
+
+        return view('payments.pendingpayment',compact('pendingPayments'));
+    }
+
+
+
 }
