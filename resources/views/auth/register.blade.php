@@ -15,8 +15,8 @@
 <body>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 style="margin-top:20px;">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-md-4" style="margin-top:20px;">
 
                 <h4>Registration</h4>
                 <hr>
@@ -26,11 +26,11 @@
                     @endif
 
                     @if (Session::has('fail'))
-                    <div class="alert alert-danger">{{Session::get(fail)}}</div>
+                    <div class="alert alert-danger">{{Session::get('fail')}}</div>
                     @endif
                     @csrf
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
+                    <div class="mb-3"> <!-- Add margin bottom between label and input -->
+                        <label for="name" class="form-label">Full Name</label>
                         <input type="text" class="form-control" placeholder="Enter Full Name" name="name"
                             value="{{old('name')}}">
                             <span class="text-danger">
@@ -40,8 +40,8 @@
                             </span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
+                    <div class="mb-3"> <!-- Add margin bottom between label and input -->
+                        <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control" placeholder="Enter Email" name="email"
                             value="{{old('email')}}">
                             <span class="text-danger">
@@ -51,8 +51,8 @@
                             </span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
+                    <div class="mb-3"> <!-- Add margin bottom between label and input -->
+                        <label for="phone" class="form-label">Phone</label>
                         <input type="text" class="form-control" placeholder="Enter Phone" name="phone"
                             value="{{old('phone')}}">
                             <span class="text-danger">
@@ -62,8 +62,8 @@
                             </span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                    <div class="mb-3"> <!-- Add margin bottom between label and input -->
+                        <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" placeholder="Enter Password" name="password"
                             value="{{old('password')}}">
                             <span class="text-danger">
@@ -72,15 +72,14 @@
                                 @enderror
                             </span>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3"> <!-- Add margin bottom between input and button -->
                         <button class="btn btn-block btn-primary" type="submit">
                             Register
                         </button>
                     </div>
                     <br>
 
-                    <span>Already Registered !!</span><br>
-                    <a href="/login"> Login Here.</a>
+                    <p class="text-left">Already Registered !! <a href="/login">Login Here.</a></p>
                 </form>
             </div>
         </div>

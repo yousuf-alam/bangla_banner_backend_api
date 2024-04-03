@@ -15,9 +15,8 @@
 <body>
 
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 style="margin-top:20px;">
-
+        <div class="row justify-content-center align-items-center" style="height: 100vh;"> <!-- Center the content -->
+            <div class="col-md-4" style="margin-top:20px;"> <!-- Modified class for centering -->
                 <h4>Login</h4>
                 <hr>
                 <form action="{{route('login-user')}} " method="POST">
@@ -30,36 +29,34 @@
                     @endif
                     @csrf
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
+                    <div class="mb-3"> <!-- Add margin bottom between label and input -->
+                        <label for="email" class="form-label">Email</label>
                         <input type="text" class="form-control" placeholder="Enter Email" name="email"
-                        value="{{old('email')}}">
-                            <span class="text-danger">
-                                @error('email')
-                                    {{$message}}
-                                @enderror
-                            </span>
+                            value="{{old('email')}}">
+                        <span class="text-danger">
+                            @error('email')
+                                {{$message}}
+                            @enderror
+                        </span>
                     </div>
 
-                    <div class="form-group">
-                        <label for="password">Password</label>
+                    <div class="mb-3"> <!-- Add margin bottom between label and input -->
+                        <label for="password" class="form-label">Password</label>
                         <input type="password" class="form-control" placeholder="Enter Password" name="password"
                             value="{{old('password')}}">
-                            <span class="text-danger">
-                                @error('password')
-                                    {{$message}}
-                                @enderror
-                            </span>
+                        <span class="text-danger">
+                            @error('password')
+                                {{$message}}
+                            @enderror
+                        </span>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3"> <!-- Add margin bottom between input and button -->
                         <button class="btn btn-block btn-primary" type="submit">
                             Login
                         </button>
                     </div>
                     <br>
-                     <span>New User !!</span>
-                    <br>
-                    <a href="register"> Register Here.</a>
+                    <p class="text-left">New User !! <a href="register">Register Here.</a></p>
 
                 </form>
             </div>
