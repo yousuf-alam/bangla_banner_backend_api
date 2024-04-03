@@ -9,24 +9,24 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        /* Add custom styles here */
+
         body {
-            background-color: #f8f9fa; /* Set background color */
+            background-color: #f8f9fa;
         }
         .container {
-            min-height: 100vh; /* Set minimum height of container */
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .form-container {
-            background-color: #fff; /* Set background color for form container */
-            padding: 20px; /* Add padding */
-            border-radius: 10px; /* Add border radius */
-            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Add box shadow */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
         .form-group {
-            margin-bottom: 20px; /* Add bottom margin */
+            margin-bottom: 20px;
         }
     </style>
 </head>

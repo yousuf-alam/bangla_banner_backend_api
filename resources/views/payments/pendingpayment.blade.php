@@ -9,21 +9,20 @@
     <title>Document</title>
 
     <style>
-        /* Add styles here */
-        .table {
+         .table {
             width: 100%;
             border-collapse: collapse;
-            border: 1px solid #dee2e6; /* Table border */
+            border: 1px solid #dee2e6;
         }
 
         th, td {
             padding: 8px;
             text-align: left;
-            border-bottom: 1px solid #dee2e6; /* Row borders */
+            border-bottom: 1px solid #dee2e6;
         }
 
         th {
-            background-color: #f8f9fa; /* Table header background color */
+            background-color: #f8f9fa;
             font-weight: bold;
         }
 
@@ -32,10 +31,10 @@
         }
 
         .table-light {
-            background-color: #f8f9fa; /* Table header background color */
+            background-color: #f8f9fa;
         }
 
-        /* Added Styles */
+
         .action-buttons {
             display: flex;
             flex-direction: row;
