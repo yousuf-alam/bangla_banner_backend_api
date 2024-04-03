@@ -1,43 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
-@section('content')
+    <style>
+        /* Add styles here */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #dee2e6; /* Table border */
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6; /* Row borders */
+        }
+
+        th {
+            background-color: #f8f9fa; /* Table header background color */
+            font-weight: bold;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table-light {
+            background-color: #f8f9fa; /* Table header background color */
+        }
+
+        /* Added Styles */
+        .action-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
 <div class="card-body">
     <div class="listjs-table">
         <div class="table-responsive table-card mb-1">
             <table class="table align-middle table-nowrap">
                 <thead class="table-light">
-                    <tr>
-                        <th data-sort="customer_name">User</th>
-                        <th data-sort="phone">Phone</th>
-                        <th data-sort="payment_method">Payment Method</th>
-                        <th data-sort="trans_id">Transaction ID</th>
-                        <th data-sort="payment_number">Payment Number</th>
-                        <th data-sort="amount">Amount</th>
-                        <th data-sort="status">Status</th>
-                    </tr>
+                <tr>
+                    <th class="text-center">User</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center">Payment Method</th>
+                    <th class="text-center">Transaction ID</th>
+                    <th class="text-center">Payment Number</th>
+                    <th class="text-center">Amount</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Action</th>
+
+                </tr>
                 </thead>
                 <tbody class="list form-check-all">
-                    @foreach ($pendingPayments as $payment)
-                        <tr>
-                            <td class="customer_name">{{ $payment->user->name }}</td>
-                            <td class="phone">{{ $payment->user->phone }}</td>
-                            <td class="payment_method">{{ $payment->payment_method }}</td>
-                            <td class="trans_id">{{ $payment->trans_id }}</td>
-                            <td class="payment_number">{{ $payment->payment_number }}</td>
-                            <td class="amount">{{ $payment->amount }}</td>
-                            <td class="status">{{ $payment->status }}</td>
-                        </tr>
-                    @endforeach
+                @foreach ($pendingPayments as $payment)
+                    <tr>
+                        <td class="text-center">{{ $payment->user->name }}</td>
+                        <td class="text-center">{{ $payment->user->phone }}</td>
+                        <td class="text-center">{{ $payment->payment_method }}</td>
+                        <td class="text-center">{{ $payment->trans_id }}</td>
+                        <td class="text-center">{{ $payment->payment_number }}</td>
+                        <td class="text-center">{{ $payment->amount }}</td>
+                        <td class="text-center">{{ $payment->status }}</td>
+                        <td class="text-center">
+                            <div class="action-buttons">
+                                <a href="#">
+                                    <button class="btn btn-sm btn-primary">
+                                       Edit
+                                    </button>
+                                </a>
+
+                                    <form action="#" method="post">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            Approve
+                                        </button>
+                                    </form>
+                                    <form action="#" method="post"
+                                          onsubmit="return confirm('Are you sure you want to reject this payment?')">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            Reject
+                                        </button>
+                                    </form>
+                                
+                            </div>
+                        </td>
+
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-@endsection
-
-@section('css')
-    <style>
-        .table-light th {
-            text-align: center;
-        }
-    </style>
-@endsection
+</body>
+</html>
