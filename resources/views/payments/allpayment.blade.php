@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <title>Document</title>
 
     <style>
@@ -71,11 +73,10 @@
                         <td class="text-center">{{ $payment->status }}</td>
                         <td class="text-center">
                             <div class="action-buttons">
-                                <a href="#">
-                                    <button class="btn btn-sm btn-primary">
-                                       Edit
-                                    </button>
+                                <a href="{{ route('edit.payment', $payment->id) }}">
+                                    <button class="btn btn-sm btn-primary">Edit</button>
                                 </a>
+
                                 @if($payment->status == 'pending')
                                     <form action="#" method="post">
                                         @csrf

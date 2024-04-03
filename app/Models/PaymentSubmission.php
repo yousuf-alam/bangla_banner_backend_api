@@ -10,6 +10,15 @@ class PaymentSubmission extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'payment_method',
+        'trans_id',
+        'payment_number',
+        'amount',
+        'status',
+        
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

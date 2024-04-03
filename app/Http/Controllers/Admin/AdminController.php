@@ -104,5 +104,30 @@ class AdminController extends Controller
     }
 
 
+    public function editPayment($id){
+
+
+        $payment = PaymentSubmission::findOrFail($id);
+
+
+        return view('payments.editpayment',compact('payment'));
+
+    }
+
+    public function updatePayment(Request $request, $id){
+         $payment = PaymentSubmission::findOrFail($id);
+
+         $payment->fill($request->only(['payment_method', 'trans_id', 'payment_number', 'amount', 'status']));
+
+        $payment->save();
+
+        if ($payment->status == 'pending') {
+
+            return redirect()->route('pending.payments')->with('success', 'Payment updated successfully');
+        } else {
+
+            return redirect()->route('all.payments')->with('success', 'Payment updated successfully');
+        }
+    }
 
 }
