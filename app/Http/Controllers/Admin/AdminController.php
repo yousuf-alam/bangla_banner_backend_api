@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PaymentSubmission;
 use App\Models\User\User;
+use App\Services\UserWalletService;
+use App\Services\WalletHistoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -87,47 +89,79 @@ class AdminController extends Controller
         }
     }
 
-    public function allPayments(){
-
+    public function allPayments()
+    {
         $allPayments = PaymentSubmission::with('user')->get();
 
-        return view('payments.allpayment',compact('allPayments'));
+        return view('payments.allpayment', compact('allPayments'));
     }
 
-    public function pendingPayments(){
+    public function pendingPayments()
+    {
+        $pendingPayments = PaymentSubmission::with('user')->where('status', 'pending')->get();
 
-        $pendingPayments = PaymentSubmission::with('user')
-        ->where('status', 'pending')
-        ->get();
-
-        return view('payments.pendingpayment',compact('pendingPayments'));
+        return view('payments.pendingpayment', compact('pendingPayments'));
     }
 
-
-    public function editPayment($id){
-
-
+    public function editPayment($id)
+    {
         $payment = PaymentSubmission::findOrFail($id);
 
-
-        return view('payments.editpayment',compact('payment'));
-
+        return view('payments.editpayment', compact('payment'));
     }
 
-    public function updatePayment(Request $request, $id){
-         $payment = PaymentSubmission::findOrFail($id);
+    public function updatePayment(Request $request, $id)
+    {
+        $payment = PaymentSubmission::findOrFail($id);
 
-         $payment->fill($request->only(['payment_method', 'trans_id', 'payment_number', 'amount', 'status']));
+        $payment->fill($request->only(['payment_method', 'trans_id', 'payment_number', 'amount', 'status']));
 
         $payment->save();
 
         if ($payment->status == 'pending') {
-
             return redirect()->route('pending.payments')->with('success', 'Payment updated successfully');
         } else {
-
             return redirect()->route('all.payments')->with('success', 'Payment updated successfully');
         }
     }
 
+    public function approvePayment(Request $request)
+    {
+
+        $payment = json_decode($request->payment, true);
+        $paymentId = $payment['id'];
+        $userId = $payment['user']['id'];
+        $user = User::findOrFail($userId);
+        $amount = $payment['amount'];
+        $payment = PaymentSubmission::findOrFail($paymentId);
+        $payment->message = 'Payment is Successfull';
+        $payment->save();
+
+        UserWalletService::creditUserWallet($user, $amount);
+
+        WalletHistoryService::createCreditData($user, $amount);
+
+
+        if ($payment->status == 'pending') {
+            return redirect()->route('pending.payments')->with('success', 'Payment updated successfully');
+        } else {
+            return redirect()->route('all.payments')->with('success', 'Payment updated successfully');
+        }
+    }
+
+    public function rejectPayment(Request $request){
+
+        $payment = json_decode($request->payment, true);
+        $paymentId = $payment['id'];
+        $payment = PaymentSubmission::findOrFail($paymentId);
+        $payment->message = 'Payment is Rejected';
+        $payment->save();
+
+        if ($payment->status == 'pending') {
+            return redirect()->route('pending.payments')->with('success', 'Payment updated successfully');
+        } else {
+            return redirect()->route('all.payments')->with('success', 'Payment updated successfully');
+        }
+
+    }
 }

@@ -76,21 +76,21 @@
                                     <button class="btn btn-sm btn-primary">Edit</button>
                                 </a>
 
-                                @if($payment->status == 'pending')
-                                    <form action="#" method="post">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-success">
-                                            Approve
-                                        </button>
-                                    </form>
-                                    <form action="#" method="post"
-                                          onsubmit="return confirm('Are you sure you want to reject this payment?')">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-danger">
-                                            Reject
-                                        </button>
-                                    </form>
-                                @endif
+                                {{-- @if($payment->status == 'pending') --}}
+                                <form action="{{ route('approve.payment') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="payment" value="{{ $payment }}">
+
+                                    <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                                </form>
+
+                                <form action="{{ route('reject.payment') }}" method="post" onsubmit="return confirm('Are you sure you want to reject this payment?')">
+                                    @csrf
+                                    <input type="hidden" name="payment" value="{{ $payment }}">
+                                    <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                                </form>
+
+                                {{-- @endif --}}
                             </div>
                         </td>
 

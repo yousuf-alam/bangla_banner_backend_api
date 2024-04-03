@@ -34,9 +34,11 @@ Route::prefix('/')->middleware(['admin_auth'])->group(function () {
     Route::get('/all-payments', [AdminController::class, 'allPayments'])->name('all.payments');
     Route::get('/pending-payments', [AdminController::class, 'pendingPayments'])->name('pending.payments');
 
-
+    Route::post('/approve-payment', [AdminController::class, 'approvePayment'])->name('approve.payment');
+    Route::post('/reject-payment', [AdminController::class, 'rejectPayment'])->name('reject.payment');
     Route::get('/edit-payment/{id}', [AdminController::class, 'editPayment'])->name('edit.payment');
     Route::post('/update-payment/{id}', [AdminController::class, 'updatePayment'])->name('update.payment');
+
 
 
 

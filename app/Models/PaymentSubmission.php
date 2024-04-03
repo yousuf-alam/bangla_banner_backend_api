@@ -16,7 +16,8 @@ class PaymentSubmission extends Model
         'payment_number',
         'amount',
         'status',
-        
+        'message'
+
     ];
 
     public function user()
