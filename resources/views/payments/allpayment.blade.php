@@ -76,8 +76,7 @@
                                     <button class="btn btn-sm btn-primary">Edit</button>
                                 </a>
 
-                                {{-- @if($payment->status == 'pending') --}}
-                                <form action="{{ route('approve.payment') }}" method="post">
+                                 <form action="{{ route('approve.payment') }}" method="post">
                                     @csrf
                                     <input type="hidden" name="payment" value="{{ $payment }}">
 
@@ -90,8 +89,7 @@
                                     <button type="submit" class="btn btn-sm btn-danger">Reject</button>
                                 </form>
 
-                                {{-- @endif --}}
-                            </div>
+                             </div>
                         </td>
 
                     </tr>
@@ -101,5 +99,7 @@
         </div>
     </div>
 </div>
+
+
 </body>
 </html>

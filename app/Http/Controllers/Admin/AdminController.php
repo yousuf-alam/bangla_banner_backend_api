@@ -142,10 +142,10 @@ class AdminController extends Controller
         WalletHistoryService::createCreditData($user, $amount);
 
 
-        if ($payment->status == 'pending') {
-            return redirect()->route('pending.payments')->with('success', 'Payment updated successfully');
-        } else {
+        if (url()->previous() == route('all.payments')) {
             return redirect()->route('all.payments')->with('success', 'Payment updated successfully');
+        } else {
+            return back()->with('success', 'Payment updated successfully');
         }
     }
 
@@ -157,10 +157,10 @@ class AdminController extends Controller
         $payment->message = 'Payment is Rejected';
         $payment->save();
 
-        if ($payment->status == 'pending') {
-            return redirect()->route('pending.payments')->with('success', 'Payment updated successfully');
-        } else {
+        if (url()->previous() == route('all.payments')) {
             return redirect()->route('all.payments')->with('success', 'Payment updated successfully');
+        } else {
+            return back()->with('success', 'Payment updated successfully');
         }
 
     }
